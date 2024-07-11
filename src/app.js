@@ -4,6 +4,7 @@ const dotenv= require('dotenv');
 const helmet= require('helmet');
 const rateLimit= require('express-rate-limit');
 const loginRouter= require('./routes/loginRouter');
+const signupRouter= require('./routes/signupRouter');
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(rateLimit({
 
 
 app.use('/api', loginRouter);
+app.use('/api', signupRouter);
 
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
