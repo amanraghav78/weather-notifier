@@ -5,6 +5,7 @@ const helmet= require('helmet');
 const rateLimit= require('express-rate-limit');
 const loginRouter= require('./routes/loginRouter');
 const signupRouter= require('./routes/signupRouter');
+const weatherRoutes = require('./routes/weatherRoutes');
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.use(rateLimit({
     max: 100 // limit each IP to 100 requests per windowMs
 }));
 
-
+app.use('/api/weather', weatherRoutes);
 app.use('/api', loginRouter);
 app.use('/api', signupRouter);
 
