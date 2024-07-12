@@ -16,13 +16,15 @@ function verifyToken(req, res, next) {
         return res.status(401).json({ error: 'Access denied! No token provided.' });
     }
 
-    try {
-        const decoded = jwt.verify(token, SECRET_KEY);
+    jwt.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: 'Invalid token!' });
+        }
+        
         req.userId = decoded.userId;
+        console.log('Token successfully verified!');
         next();
-    } catch (error) {
-        res.status(401).json({ error: 'Invalid token!' });
-    }
-};
+    });
+}
 
 module.exports = verifyToken;

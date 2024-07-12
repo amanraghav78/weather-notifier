@@ -19,7 +19,9 @@ const login= async (req, res) => {
             return res.status(400).send('Invalid username or password!');
         }
 
-        const token= jwt.sign({_id: user.id}, process.env.JWT_SECRET);
+        const token= jwt.sign({_id: user.id, }, process.env.JWT_SECRET, {
+            expiresIn: '10m'
+        });
 
         res.send({ token });
     } catch(err){

@@ -9,11 +9,11 @@ const signUp = async (req, res)=> {
     }
 
     try {
-        // const existingUser= await User.findOne({ email });
+        const existingUser= await User.findOne({ email });
 
-        // if(existingUser){
-        //     return res.status(409).send('User already exists');
-        // }
+        if(existingUser){
+            return res.status(409).send('User already exists');
+        }
 
         const hashedPassword= await bcrypt.hash(password, 10);
 
