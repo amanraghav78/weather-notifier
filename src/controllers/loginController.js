@@ -11,7 +11,9 @@ const login= async (req, res) => {
             return res.status(400).send('Invalid username or password!');
         }
 
-        const validPassword= bcrypt.compare(password, user.password);
+        const validPassword= await bcrypt.compare(password, user.password);
+
+        console.log(validPassword);
 
         if(!validPassword){
             return res.status(400).send('Invalid username or password!');
