@@ -6,12 +6,14 @@ const rateLimit= require('express-rate-limit');
 const loginRouter= require('./routes/loginRouter');
 const signupRouter= require('./routes/signupRouter');
 const weatherRoutes = require('./routes/weatherRoutes');
+const cors= require('cors');
 
 dotenv.config();
 
 const app= express();
 app.use(express.json());
 app.use(helmet());
+
 
 app.use(rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -21,6 +23,7 @@ app.use(rateLimit({
 app.use('/api/weather', weatherRoutes);
 app.use('/api', loginRouter);
 app.use('/api', signupRouter);
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
